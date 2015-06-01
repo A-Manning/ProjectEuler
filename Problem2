@@ -1,0 +1,15 @@
+/**
+ * @author A Manning
+ * Generates the sum of even fibonacci numbers up to 4 million. Uses tail recursion. 
+ */
+object Problem2Soln {
+   def main(args: Array[String]): Unit = {
+     def evenFibonacciSum(N:Long, First:Long,Second:Long , Sum:Long) : Long = 
+       if (First > N) Sum
+       else 
+         if(First%2 == 0) evenFibonacciSum(N,First+Second,First,Sum+First)
+         else evenFibonacciSum(N,First+Second,First,Sum)
+     println(evenFibonacciSum(4000000L,1,1,0))  
+         
+}
+}
