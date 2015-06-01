@@ -1,0 +1,21 @@
+/**
+ * @author A Manning
+ * This computes the largest prime factor of a number, in this case 600851475143.
+ * Some basic number theory - the prime factorisation of a number is unique. 
+ * We'll use some nice recursion here to reduce the solution space. 
+ */
+import scala.math
+object Problem3Soln {
+  def main(args: Array[String]): Unit = {
+    def computeLargestPrimeFactor(N:Long): Long = {
+      val sqrtN = (math.sqrt(N.toDouble)).toLong
+      val dOption:Option[Long] = (2L to sqrtN).find(x=> N%x == 0L) 
+      // dOption is an Option representing a prime divisor of N
+      // the find function returns the smallest prime divisor. This number exists in the given range unless N is prime. 
+      // if n is prime, it is the largest prime divisor because it is not composite. 
+      if (dOption.nonEmpty) computeLargestPrimeFactor(N/dOption.get)//if the divisor exists, we divide by it to see the larger divisor. 
+      else N 
+    }
+  println(computeLargestPrimeFactor(600851475143L))
+  }
+}
