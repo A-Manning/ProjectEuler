@@ -1,0 +1,21 @@
+/**
+ * @author A Manning
+ * We seek the largest palindromic number P such that P is the product of two 2-digit numbers. 
+ * We simplify the solution space with some number theory. 
+ * The maximum possible solution has 5 digits.
+ * Proof - Suppose S is the solution and is the product of two 3 digit numbers.
+ * Then S =< (999*999) => S < 998001 
+ * Thus S has at most 5 digits. Similarly, (100*100) = 10000 so we must have at least 5 digits. 
+ * The solution will be found by attempting trial division on each number in a range of known palindromic numbers. 
+ * Generating palindromes is faster than testing them but not significantly. I will test them rather than generate them. 
+ */
+object Problem4Soln {
+  def main(args: Array[String]): Unit = {
+    def findSolution(upperBound:Int, lowerBound:Int): Int = {
+      val palRange = (lowerBound to upperBound).filter(x=>x.toString.reverse == (x.toString)) // palRange is a range of palindrome candidates
+      def isSoln(N:Int): Boolean = (100 to 999).exists(x => N%x == 0 && N/x >= 100 && N/x <= 999)//tests if a number is a solution
+      palRange.reverse.find(x=>isSoln(x)).get //sorts the palindromes high to low, finds the first(greatest) solution
+    }
+   println(findSolution(998001,10000))
+  }
+}
