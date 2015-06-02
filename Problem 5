@@ -1,0 +1,27 @@
+/**
+ * @author A Manning
+ * We seek the smallest number N such that N is divisible by the numbers 1..20
+ * All natural numbers are divisible by 1, so we need to have divisibility from 2..20
+ * I will find the solution by taking the range 2..20 and considering the primes in this range. 
+ * I will compute the prime factorisations of 2..20 and find the greatest multiplicity of each prime within it's range. 
+ * The answer is the product of each of these primes to the power of it's multiplicity. 
+ * 
+ */
+object Problem5 {
+  def main(args: Array[String]): Unit = {
+    val primes2to20 = List(2,3,5,7,11,13,17,19)
+    def multiplicityOfPInN(p:Int, n:Int, m:Int) : Int = { //finds the multiplicity of a prime p in the prime factorisation of n
+      if(n%p ==0) multiplicityOfPInN(p,n/p,m+1)
+      else m
+    }
+    def multiplicityOfPInRange(p:Int): Int = { //finds the greatest multiplicity of a prime p in the range 2..20
+      (2 to 20).map(x => multiplicityOfPInN(p,x,0)).max
+    }
+    val solutionset =  primes2to20.map(x=>math.pow(x, multiplicityOfPInRange(x)))//raises the primes to their multiplicities
+    def Solve(Product:BigDecimal , Index: Int) : BigDecimal = { //takes the product of the solution set
+      if (Index == 8) Product
+      else Solve(Product*solutionset(Index) , Index+1)
+    }
+    println(Solve(1.0, 0))
+  }
+}
