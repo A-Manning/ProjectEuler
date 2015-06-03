@@ -1,0 +1,22 @@
+/*
+* @author A Manning
+* Here we seek the 10,001th Prime. 
+* I'm going to use the Sieve of Eristothenes again. 
+* There is no way to do this without Sieving an arbitrarily large set of numbers,to my knowledge. I will sieve through 1 million. 
+* Upon running, I am now aware that my program finds nearly 80,000 primes. This is unnecessary, and really I could reduce the search space.
+* I have left my code as it was, however, since the runtime of this algorithm is still very small. 
+ */
+object Problem7 {
+  def main(args: Array[String]): Unit = {
+    def isCoPrime(x:Long,y:Long): Boolean = if (x==y || x%y != 0L) true else false
+    def Sieve(set : IndexedSeq[Long] , index:Int): IndexedSeq[Long] = {
+      val newset = set.filter(x=> isCoPrime(x,set(index)))
+      if (newset(index)*newset(index) > newset.last) newset
+      else Sieve(newset,index+1)
+    }
+    val primes = Sieve((2L to 1000000L),0)
+    val ans = primes(10001)
+    println(ans)
+    
+  }
+}
