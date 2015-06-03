@@ -1,0 +1,12 @@
+/**
+ * @author A Manning
+ * Here we seek the difference between the square of sum and sum of squares of the numbers 1 to 100. 
+ * This will be rather straightforward. 
+ */
+object Problem6 {
+  def main(args: Array[String]): Unit = {
+    val sqOfSum = math.pow((1 to 100).sum , 2)
+    val sumOfSq = (1 to 100).map(x=>x*x).sum
+    println((sqOfSum-sumOfSq).toLong)
+  }
+}
